@@ -13,3 +13,11 @@ export async function PATCH (request, {params}){
 
     return Response.json(comment[commentIndex])
 }
+export async function DELETE (request, {params}){
+    const commentId= params.id
+    const commentIndex = comment.findIndex(comment=> comment.id === parseInt(commentId))
+    const commentToDelete= comment[commentIndex]
+    comment.splice(commentIndex,1)
+
+    return Response.json(commentToDelete)
+}
