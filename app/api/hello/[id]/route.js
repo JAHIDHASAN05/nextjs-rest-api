@@ -1,8 +1,13 @@
+import { redirect } from "next/navigation";
 import comment from "../../data/coment";
 
 export async function GET (_request, {params}){
-    const commentId= params.id
+    const commentId= params.id   
+   
     const coment = comment.find(comment=> comment.id === parseInt(commentId))
+    if(!coment){        
+        redirect('/api/hello')
+    }
     return Response.json(coment)
 }
 export async function PATCH (request, {params}){
@@ -16,6 +21,8 @@ export async function PATCH (request, {params}){
 export async function DELETE (request, {params}){
     const commentId= params.id
     const commentIndex = comment.findIndex(comment=> comment.id === parseInt(commentId))
+
+   
     const commentToDelete= comment[commentIndex]
     comment.splice(commentIndex,1)
 
