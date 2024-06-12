@@ -1,7 +1,17 @@
 import comment from "../data/coment"
 
-export const  GET = async()=> {
+export const  GET = async(request)=> {
     // return new Response('Fisrt api in next js in array function')
+    const searchParams= request.nextUrl.searchParams
+    const query= searchParams.get('query')
+   
+    if(query){
+
+        const filteredComment= comment.filter(coment=> 
+            coment.message.toLocaleLowerCase().includes(query)
+        )
+        return Response.json(filteredComment)
+    }
     return Response.json(comment)
 }
 export const  POST = async(request)=> {
